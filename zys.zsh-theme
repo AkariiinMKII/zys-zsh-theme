@@ -79,9 +79,9 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  # if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-  #   prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-  # fi
+  if [[ "$USER" != "root" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "💊"
+  fi
 }
 
 # Git: branch/detached head, dirty status
@@ -205,9 +205,9 @@ prompt_virtualenv() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}❌"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}☕"
 
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
@@ -226,4 +226,4 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
-RPROMPT='%{%F{yellow}%}[%*]'
+RPROMPT='%{%F{yellow}%}$USER@$HOST [%*]'
