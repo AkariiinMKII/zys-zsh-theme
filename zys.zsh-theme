@@ -79,7 +79,7 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  if [[ "$USER" != "root" || -n "$SSH_CLIENT" ]]; then
+  if [[ "$USER" != "root" ]]; then
     prompt_segment black default "💊"
   fi
 }
